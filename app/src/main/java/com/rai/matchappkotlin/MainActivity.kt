@@ -3,10 +3,14 @@ package com.rai.matchappkotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.google.gson.Gson
 import com.rai.matchappkotlin.DataModels.MatchDetail
 import com.rai.matchappkotlin.Network.MatchService
 import com.rai.matchappkotlin.Network.RetrofitHelper
+import com.rai.matchappkotlin.databinding.ActivityMainBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -15,46 +19,35 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var getMatchApi:MatchService
+
+
+    private var _binding: ActivityMainBinding? = null
+
+    private val binding get() = _binding!!
+
+    lateinit var navController:NavController
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-         getMatchApi = RetrofitHelper.getInstance().create(MatchService::class.java)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+        navController = navHostFragment.navController
 
 
-        useCoroutine();
+
+
+
+
+
+
     }
-    fun useCoroutine(){
-        // launching a new coroutine
-        GlobalScope.launch {
-            val result = getMatchApi.getMatch()
-            result.enqueue(object :retrofit2.Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        val jsonString = responseBody?.string()
-                      //  val jsonObject = JSONObject(jsonString) not using object for now
-
-                        val gson = Gson()
-                        val matchDetail = gson.fromJson(jsonString, MatchDetail::class.java)
-
-                        Log.d("TAG", "onResponse: "+matchDetail.toString())
-
-                    } else {
-                        // API error
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-
-        }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
     }
 }
