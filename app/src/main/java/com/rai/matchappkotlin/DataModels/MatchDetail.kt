@@ -1,8 +1,24 @@
 package com.rai.matchappkotlin.DataModels
 
 import com.google.gson.annotations.SerializedName
+import org.json.JSONObject
 
 data class MatchDetail(
+    @SerializedName("Matchdetail")
+    val match: mainData,
+    @SerializedName("Nuggets")
+    val nuggets:ArrayList<String>,
+    @SerializedName("Innings")
+    val innings: ArrayList<Innings>,
+    @SerializedName("Teams")
+    val teams: Map<String, Team>,
+    @SerializedName("Notes")
+    val notes: Map<String, ArrayList<String>>
+)
+
+
+
+data class mainData(
     @SerializedName("Team_Home")
     val teamHome: String,
     @SerializedName("Team_Away")
@@ -79,8 +95,155 @@ data class Venue(
 )
 
 data class Officials(
-    @SerializedName("Daynight")
+    @SerializedName("Umpires")
     val umpires: String,
-    @SerializedName("Daynight")
+    @SerializedName("Referee")
     val referee: String
+)
+data class Team(
+    @SerializedName("Name_Full")
+    val name_full:String,
+    @SerializedName("Name_Short")
+    val name_short:String,
+    @SerializedName("Players")
+    val players:Map<String,Player>,
+)
+data class Innings (
+    @SerializedName("Number")
+    val number:String,
+    @SerializedName("Battingteam")
+    val battingTeam:String,
+    @SerializedName("Total")
+    val total:String,
+    @SerializedName("Wickets")
+    val wickets:String,
+    @SerializedName("Overs")
+    val overs:String,
+    @SerializedName("Runrate")
+    val runrate:String,
+    @SerializedName("Byes")
+    val byes:String,
+    @SerializedName("Legbyes")
+    val leabyes:String,
+    @SerializedName("Wides")
+    val wides:String,
+    @SerializedName("Noballs")
+    val no_balls:String,
+    @SerializedName("Penalty")
+    val penalty:String,
+    @SerializedName("AllottedOvers")
+    val allotted_overs:String,
+    @SerializedName("Batsmen")
+    val batsmens:ArrayList<batsmen>,
+    @SerializedName("Partnership_Current")
+    val current_partnership:PartnerShip,
+    @SerializedName("FallofWickets")
+    val fallofWickets: ArrayList<FallofWickets>,
+    @SerializedName("PowerPlay")
+    val power_play: PowerPlay,
+    @SerializedName("Bowlers")
+    val bowlers: ArrayList<bowlers>,
+
+    )
+data class batsmen(
+    @SerializedName("Batsman")
+    val batsmen:String,
+    @SerializedName("Runs")
+    val runs:String,
+    @SerializedName("Balls")
+    val balls:String,
+    @SerializedName("Fours")
+    val fours:String,
+    @SerializedName("Sixes")
+    val Sixes:String,
+    @SerializedName("Dots")
+    val dots:String,
+    @SerializedName("Strikerate")
+    val strikeRate:String,
+    @SerializedName("Dismissal")
+    val dissmissal:String,
+    @SerializedName("Howout")
+    val howout:String,
+    @SerializedName("Bowler")
+    val bowler:String,
+    @SerializedName("Fielder")
+    val fielder:String,
+
+)
+data class PartnerShip(
+    @SerializedName("Runs")
+    val runs: String,
+    @SerializedName("Balls")
+    val balls: String,
+    @SerializedName("Batsmen")
+    val batsmen: ArrayList<batsmen>
+)
+data class FallofWickets(
+    @SerializedName("Batsman")
+    val batsmen: String,
+    @SerializedName("Score")
+    val score:String,
+    @SerializedName("Overs")
+    val overs: String
+)
+data class PowerPlay(
+    @SerializedName("PP1")
+    val power_play_1:String,
+    @SerializedName("PP2")
+    val power_play_2: String
+)
+
+data class bowlers(
+    @SerializedName("Bowler")
+    val bowler: String,
+    @SerializedName("Overs")
+    val overs: String,
+    @SerializedName("Maidens")
+    val maidens:String,
+    @SerializedName("Runs")
+    val runs: String,
+    @SerializedName("Wickets")
+    val wickets: String,
+    @SerializedName("Economyrate")
+    val economy_rate:String,
+    @SerializedName("Noballs")
+    val no_balls: String,
+    @SerializedName("Wides")
+    val wides: String,
+    @SerializedName("Dots")
+    val dots: String
+)
+
+
+
+data class Player(
+    @SerializedName("Position")
+    val position:String,
+    @SerializedName("Name_Full")
+    val name_full:String,
+    @SerializedName("Batting")
+    val batting:Batting,
+    @SerializedName("Bowling")
+    val bowling:Bowling
+)
+data class Batting(
+    @SerializedName("Style")
+    val style:String,
+    @SerializedName("Average")
+    val average:String,
+    @SerializedName("Strikerate")
+    val strikeRate: String,
+    @SerializedName("Runs")
+    val runs: String,
+)
+data class Bowling(
+    @SerializedName("Style")
+    val style:String,
+    @SerializedName("Average")
+    val average:String,
+    @SerializedName("Economyrate")
+    val economy_rate: String,
+    @SerializedName("Wickets")
+    val wickets: String,
+
 )

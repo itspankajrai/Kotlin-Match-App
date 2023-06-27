@@ -15,43 +15,44 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var getMatchApi:MatchService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+         getMatchApi = RetrofitHelper.getInstance().create(MatchService::class.java)
 
-        val getMatchApi = RetrofitHelper.getInstance().create(MatchService::class.java)
-        val result = getMatchApi.getMatch()
-        result.enqueue(object :retrofit2.Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    val jsonString = responseBody?.string()
-                    val jsonObject = JSONObject(jsonString)
 
-                    val gson = Gson()
-                    val matchDetail = gson.fromJson(jsonObject.getJSONObject("Matchdetail").toString(), MatchDetail::class.java)
-
-                    Log.d("TAG", "onResponse: "+matchDetail.toString())
-
-                } else {
-                    // API error
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
-
+        useCoroutine();
     }
     fun useCoroutine(){
         // launching a new coroutine
         GlobalScope.launch {
+            val result = getMatchApi.getMatch()
+            result.enqueue(object :retrofit2.Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        val jsonString = responseBody?.string()
+                      //  val jsonObject = JSONObject(jsonString) not using object for now
 
+                        val gson = Gson()
+                        val matchDetail = gson.fromJson(jsonString, MatchDetail::class.java)
+
+                        Log.d("TAG", "onResponse: "+matchDetail.toString())
+
+                    } else {
+                        // API error
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
 
         }
 
