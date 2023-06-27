@@ -10,4 +10,7 @@ import retrofit2.http.GET
 interface MatchService {
     @GET("/nzin01312019187360.json")
      fun getMatch() : Call<ResponseBody>
+
+    @GET("/sapk01222019186652.json")
+    fun getMatchTwo() : Call<ResponseBody>
 }
