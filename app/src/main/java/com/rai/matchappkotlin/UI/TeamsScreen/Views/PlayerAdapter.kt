@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.rai.matchappkotlin.DataModels.Player
+import com.rai.matchappkotlin.R
 import com.rai.matchappkotlin.databinding.PlayerViewItemBinding
 
 
@@ -36,12 +37,14 @@ class PlayerAdapter(private val data: ArrayList<Player>)  : RecyclerView.Adapter
             if(item.is_keeper==true) _role=" (WK)"
             binding.textPlayerName.text = item.name_full+_role
             binding.textPlayerRole.text = item.position
+            binding.textPlayerTeam.text=item.team_name
 
             val bundle= Bundle()
             val gson= Gson()
-            bundle.putString("data",gson.toJson(item))
+            bundle.putString("player_info",gson.toJson(item))
             binding.root.setOnClickListener {
-               // it.findNavController().navigate(R.id.team_screen, bundle)
+               it.findNavController().navigate(R.id.player_info_dialog, bundle)
+
             }
         }
     }

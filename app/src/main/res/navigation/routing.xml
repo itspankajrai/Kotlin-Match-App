@@ -14,4 +14,13 @@
     </fragment>
     <fragment android:name="com.rai.matchappkotlin.UI.TeamsScreen.TeamScreen"
         android:id="@+id/team_screen"/>
+    <dialog
+        android:id="@+id/player_info_dialog"
+        android:name="com.rai.matchappkotlin.UI.TeamsScreen.Views.Custom_Player_info_dailog"
+        android:label="player_info_dialog" >
+        <argument
+            android:name="player_info"
+            app:argType="string"
+            />
+    </dialog>
 </navigation>

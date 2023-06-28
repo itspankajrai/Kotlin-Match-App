@@ -29,6 +29,7 @@ class MatchScreen : Fragment() {
     var dataList=ArrayList<MatchDetail>()
     private lateinit var matchRecyclerView:RecyclerView
     private lateinit var adapter: MatchDetailRecycler
+    var current_match=false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,22 +43,10 @@ class MatchScreen : Fragment() {
         matchRecyclerView.adapter = adapter
         matchRecyclerView.layoutManager = LinearLayoutManager(context)
 
-
-
-
-
-
-
-
-
-
-
-
-
-      //  context?.let { viewModel.useCoroutineMatchOne(getMatchApi, it) }
-        context?.let { viewModel.loadDataFromAssets( it) }
+        binding.btnNextMatch.setOnClickListener {
+            doLoadMatch()
+        }
         viewModel.listOfMatch.observe(viewLifecycleOwner){
-            Log.d("TAG", "onCreateView: $it")
             if(dataList.size>0){
                 dataList.clear()
             }
@@ -68,14 +57,9 @@ class MatchScreen : Fragment() {
         }
 
 
-
-
-
-
-
-
-
-
+        if(dataList.size==0 || dataList.isEmpty()){
+            doLoadMatch()
+        }
 
         return view
     }
@@ -84,5 +68,16 @@ class MatchScreen : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null
+    }
+    fun  doLoadMatch(){
+        if(current_match){
+            context?.let { viewModel.useCoroutineMatchTwo(getMatchApi, it) }
+            current_match=false
+        }
+        else{
+            current_match=true
+            context?.let { viewModel.useCoroutineMatchOne(getMatchApi, it) }
+        }
+
     }
 }

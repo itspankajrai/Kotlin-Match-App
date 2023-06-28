@@ -228,7 +228,9 @@ data class Player(
     @SerializedName("Batting")
     val batting:Batting,
     @SerializedName("Bowling")
-    val bowling:Bowling
+    val bowling:Bowling,
+
+    var team_name:String,
 )
 data class Batting(
     @SerializedName("Style")

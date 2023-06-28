@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +40,9 @@ class TeamScreen : Fragment() {
     var dataList=ArrayList<Player>()
     private lateinit var teamRecyclerView: RecyclerView
     private lateinit var adapter: PlayerAdapter
+
+    private lateinit var mode_Spinner: Spinner
+    var mode_selection= arrayOf("Home Team","Away Team","Both")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,39 +50,70 @@ class TeamScreen : Fragment() {
         _binding = FragmentTeamScreenBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModel = ViewModelProvider(this)[TeamScreenViewModel::class.java]
+
+
+        //parsing args
         val args=arguments
         val data= args?.getString("data")
         val gson = Gson()
         val matchDetail = gson.fromJson(data, MatchDetail::class.java)
+
+
+        //recyclerView
         adapter= PlayerAdapter(dataList)
         teamRecyclerView=binding.teamRecyclerView
+        mode_Spinner=binding.mySpinner
         teamRecyclerView.adapter = adapter
         teamRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        //spinner
+        val selection_adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, mode_selection) }
+        selection_adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        mode_Spinner.adapter=selection_adapter
 
 
-        Log.d("TAG", "decoded: "+matchDetail.toString())
-        teams_selection(matchDetail,"home")
-        teams_selection(matchDetail,"away")
+        //selection logic
+        mode_Spinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                teams_selection(matchDetail,mode_selection[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+
         return view
 
 
     }
 
     fun teams_selection(matchDetail: MatchDetail,selection: String){
-        if(selection == "home"){
+        if(dataList.size>0){
+            dataList.clear()
+        }
+        if(selection == "Home Team" || selection=="Both"){
             matchDetail.teams[matchDetail.match.teamHome]?.players?.forEach { (s, player) ->
+                player.team_name=matchDetail.teams[matchDetail.match.teamHome]?.name_full ?: "null"
                 dataList.add(player)
             }
             adapter.notifyDataSetChanged()
         }
-        if(selection == "away"){
+        if(selection == "Away Team"|| selection=="Both"){
             matchDetail.teams[matchDetail.match.teamAway]?.players?.forEach { (s, player) ->
+                player.team_name=matchDetail.teams[matchDetail.match.teamAway]?.name_full ?: "null"
                 dataList.add(player)
             }
             adapter.notifyDataSetChanged()
         }
 
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 
 

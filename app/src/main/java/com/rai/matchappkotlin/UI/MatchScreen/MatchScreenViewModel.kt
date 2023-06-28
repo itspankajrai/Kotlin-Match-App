@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rai.matchappkotlin.DataModels.MatchDetail
 import com.rai.matchappkotlin.Network.MatchService
@@ -17,7 +18,6 @@ import java.io.IOException
 
 class MatchScreenViewModel : ViewModel() {
 
-    // TODO: Implement the ViewModel
     val listOfMatch=MutableLiveData<ArrayList<MatchDetail>>()
 
 
@@ -27,7 +27,7 @@ class MatchScreenViewModel : ViewModel() {
     fun useCoroutineMatchOne(getMatchApi:MatchService,mContext:Context){
 
         // launching a new coroutine
-        GlobalScope.launch {
+        viewModelScope.launch {
             val result = getMatchApi.getMatch()
             result.enqueue(object :retrofit2.Callback<ResponseBody> {
                 override fun onResponse(
@@ -52,8 +52,8 @@ class MatchScreenViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
                     Toast.makeText(mContext, "Something went wrong...", Toast.LENGTH_SHORT).show()
+                    t.printStackTrace()
                 }
 
             })
@@ -61,7 +61,7 @@ class MatchScreenViewModel : ViewModel() {
         }
 
     }
-    fun useCoroutineMatchTwo(getMatchApi:MatchService){
+    fun useCoroutineMatchTwo(getMatchApi:MatchService,mContext:Context){
 
         // launching a new coroutine
         GlobalScope.launch {
@@ -78,8 +78,10 @@ class MatchScreenViewModel : ViewModel() {
 
                         val gson = Gson()
                         val matchDetail = gson.fromJson(jsonString, MatchDetail::class.java)
+                        val currentMatchs=ArrayList<MatchDetail>()
+                        currentMatchs.add(matchDetail)
+                        listOfMatch.postValue(currentMatchs)
 
-                        Log.d("TAG", "onResponse: "+matchDetail.toString())
 
                     } else {
                         // API error
@@ -87,7 +89,8 @@ class MatchScreenViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(mContext, "Something went wrong...", Toast.LENGTH_SHORT).show()
+                   t.printStackTrace()
                 }
 
             })
@@ -96,7 +99,9 @@ class MatchScreenViewModel : ViewModel() {
 
     }
 
-    fun loadDataFromAssets(mContext:Context){
+
+
+  /*  fun loadDataFromAssets(mContext:Context){
         lateinit var jsonString: String
         try {
             jsonString = mContext.assets.open("data/dummyData.json")
@@ -110,7 +115,5 @@ class MatchScreenViewModel : ViewModel() {
         val currentMatchs=ArrayList<MatchDetail>()
         currentMatchs.add(matchDetail)
         listOfMatch.postValue(currentMatchs)
-
-
-    }
+    }*/
 }
