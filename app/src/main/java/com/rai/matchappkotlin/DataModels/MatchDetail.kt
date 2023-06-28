@@ -221,6 +221,10 @@ data class Player(
     val position:String,
     @SerializedName("Name_Full")
     val name_full:String,
+    @SerializedName("Iscaptain")
+    val is_captain:Boolean,
+    @SerializedName("Iskeeper")
+    val is_keeper:Boolean,
     @SerializedName("Batting")
     val batting:Batting,
     @SerializedName("Bowling")

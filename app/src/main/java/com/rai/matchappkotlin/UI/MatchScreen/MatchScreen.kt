@@ -19,13 +19,16 @@ class MatchScreen : Fragment() {
     companion object {
         fun newInstance() = MatchScreen()
     }
-    private lateinit var viewModel: MatchScreenViewModel
+
     private var _binding: FragmentMatchScreenBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: MatchScreenViewModel
+
     private lateinit var getMatchApi: MatchService
-    private lateinit var adapter: MatchDetailRecycler
+
     var dataList=ArrayList<MatchDetail>()
     private lateinit var matchRecyclerView:RecyclerView
+    private lateinit var adapter: MatchDetailRecycler
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
