@@ -1,11 +1,13 @@
 package com.rai.matchappkotlin.UI.MatchScreen.Views
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.rai.matchappkotlin.DataModels.MatchDetail
 import com.rai.matchappkotlin.R
 import com.rai.matchappkotlin.databinding.MatchDetailItemBinding
@@ -39,8 +41,11 @@ class MatchDetailRecycler(private val data: ArrayList<MatchDetail>)  : RecyclerV
             binding.textUmpires.text=item.match.officials.umpires
             binding.textMatchStatus.text=item.match.status
             binding.textMatchResult.text=item.match.result
+            val bundle=Bundle()
+            val gson=Gson()
+            bundle.putString("data",gson.toJson(item))
             binding.navigateButtonDetails.setOnClickListener(View.OnClickListener {
-                it.findNavController().navigate(R.id.team_screen)
+                it.findNavController().navigate(R.id.team_screen,bundle)
             })
         }
     }

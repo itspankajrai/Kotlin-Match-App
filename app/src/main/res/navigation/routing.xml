@@ -6,8 +6,12 @@
     >
 
     <fragment android:name="com.rai.matchappkotlin.UI.MatchScreen.MatchScreen"
-        android:id="@+id/match_screen"
-        />
+        android:id="@+id/match_screen">
+        <argument
+            android:name="data"
+            app:argType="string"
+            />
+    </fragment>
     <fragment android:name="com.rai.matchappkotlin.UI.TeamsScreen.TeamScreen"
         android:id="@+id/team_screen"/>
 </navigation>

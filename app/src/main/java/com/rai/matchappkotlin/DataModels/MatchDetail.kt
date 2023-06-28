@@ -1,7 +1,7 @@
 package com.rai.matchappkotlin.DataModels
 
 import com.google.gson.annotations.SerializedName
-import org.json.JSONObject
+
 
 data class MatchDetail(
     @SerializedName("Matchdetail")
