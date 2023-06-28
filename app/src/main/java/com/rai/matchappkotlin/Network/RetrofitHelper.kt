@@ -1,6 +1,5 @@
 package com.rai.matchappkotlin.Network
 
-import com.rai.matchappkotlin.UI.MatchScreen
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
  

@@ -5,7 +5,9 @@
     app:startDestination="@id/match_screen"
     >
 
-    <fragment android:name="com.rai.matchappkotlin.UI.MatchScreen"
+    <fragment android:name="com.rai.matchappkotlin.UI.MatchScreen.MatchScreen"
         android:id="@+id/match_screen"
         />
+    <fragment android:name="com.rai.matchappkotlin.UI.TeamsScreen.TeamScreen"
+        android:id="@+id/team_screen"/>
 </navigation>

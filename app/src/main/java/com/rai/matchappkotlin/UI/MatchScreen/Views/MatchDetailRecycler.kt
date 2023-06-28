@@ -1,10 +1,13 @@
-package com.rai.matchappkotlin.UI.Views
+package com.rai.matchappkotlin.UI.MatchScreen.Views
 
 import android.view.LayoutInflater
+import android.view.View
 
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.rai.matchappkotlin.DataModels.MatchDetail
+import com.rai.matchappkotlin.R
 import com.rai.matchappkotlin.databinding.MatchDetailItemBinding
 
 class MatchDetailRecycler(private val data: ArrayList<MatchDetail>)  : RecyclerView.Adapter<MatchDetailRecycler.ViewHolder>() {
@@ -30,10 +33,15 @@ class MatchDetailRecycler(private val data: ArrayList<MatchDetail>)  : RecyclerV
             binding.textTeamHome.text = item.teams[item.match.teamHome]?.name_full ?: "null"
             binding.textTeamAway.text = item.teams[item.match.teamAway]?.name_full ?: "null"
             binding.textVenue.text=item.match.venue.name
-            binding.textMatchDetails.text=item.match.match.date
+            binding.textDate.text=item.match.match.date
             binding.textSeriesDetails.text=item.match.series.name
             binding.textReferee.text=item.match.officials.referee
             binding.textUmpires.text=item.match.officials.umpires
+            binding.textMatchStatus.text=item.match.status
+            binding.textMatchResult.text=item.match.result
+            binding.navigateButtonDetails.setOnClickListener(View.OnClickListener {
+                it.findNavController().navigate(R.id.team_screen)
+            })
         }
     }
 }

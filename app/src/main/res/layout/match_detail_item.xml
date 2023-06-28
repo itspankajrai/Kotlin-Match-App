@@ -1,104 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:elevation="4dp"
+    android:layout_margin="4dp"
 
-    <!-- Team names -->
+    >
+
     <LinearLayout
-        android:padding="4dp"
-
+        android:padding="8dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
-        <TextView
-            android:gravity="center"
-            android:layout_weight="0.9"
-            android:id="@+id/text_team_home"
-            android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <!-- Team names -->
+        <LinearLayout
+            android:padding="4dp"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:weightSum="2">
+            <TextView
+                android:gravity="center"
+                android:layout_weight="0.9"
+                android:id="@+id/text_team_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="vs"
+                android:textStyle="bold" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="0.9"
+                android:id="@+id/text_team_away"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+                <TextView
+                    android:text="Venue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+                <TextView
+                    android:text="Series"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="14sp" />
+                <TextView
+                    android:text="Match Details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <!-- Date -->
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <!-- Venue -->
+                <TextView
+                    android:id="@+id/text_venue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <!-- Series details -->
+                <TextView
+
+                    android:id="@+id/text_series_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="14sp" />
+                <!-- Match details -->
+                <TextView
+                    android:id="@+id/text_match_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_weight="1"
+
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Umpires"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"/>
+                <TextView
+                    android:text="Referee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Match Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+                <TextView
+                    android:text="Result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <!-- Officials -->
+                <TextView
+                    android:id="@+id/text_umpires"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_referee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+                <!-- Match status -->
+                <TextView
+                    android:id="@+id/text_match_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!-- Result -->
+                <TextView
+                    android:id="@+id/text_match_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+        <!-- Winning team and margin -->
         <TextView
-            android:gravity="center"
-          android:layout_weight="0.2"
-            android:layout_width="0dp"
+            android:id="@+id/text_winning_team"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="vs"
-            android:textStyle="bold" />
+            android:textSize="14sp" />
+
+        <!-- Equation -->
         <TextView
-            android:gravity="center"
-            android:layout_weight="0.9"
-            android:id="@+id/text_team_away"
-            android:layout_width="0dp"
+            android:id="@+id/text_equation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_gravity="end"
+            android:text="Teams &amp; Players"
+            android:id="@+id/navigate_button_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 
-    <!-- Match details -->
-    <TextView
-        android:id="@+id/text_match_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Series details -->
-    <TextView
-        android:id="@+id/text_series_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Venue -->
-    <TextView
-        android:id="@+id/text_venue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Officials -->
-    <TextView
-        android:id="@+id/text_umpires"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/text_referee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Match status -->
-    <TextView
-        android:id="@+id/text_match_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <!-- Result -->
-    <TextView
-        android:id="@+id/text_match_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Winning team and margin -->
-    <TextView
-        android:id="@+id/text_winning_team"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-    <!-- Equation -->
-    <TextView
-        android:id="@+id/text_equation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

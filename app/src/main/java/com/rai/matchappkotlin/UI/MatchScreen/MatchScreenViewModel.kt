@@ -1,6 +1,8 @@
-package com.rai.matchappkotlin.UI
+package com.rai.matchappkotlin.UI.MatchScreen
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -11,13 +13,18 @@ import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import java.io.IOException
 
 class MatchScreenViewModel : ViewModel() {
 
     // TODO: Implement the ViewModel
     val listOfMatch=MutableLiveData<ArrayList<MatchDetail>>()
-    val currentMatchs=ArrayList<MatchDetail>()
-    fun useCoroutineMatchOne(getMatchApi:MatchService){
+
+
+
+
+
+    fun useCoroutineMatchOne(getMatchApi:MatchService,mContext:Context){
 
         // launching a new coroutine
         GlobalScope.launch {
@@ -34,6 +41,7 @@ class MatchScreenViewModel : ViewModel() {
 
                         val gson = Gson()
                         val matchDetail = gson.fromJson(jsonString, MatchDetail::class.java)
+                        val currentMatchs=ArrayList<MatchDetail>()
                         currentMatchs.add(matchDetail)
                         listOfMatch.postValue(currentMatchs)
                        // Log.d("TAG", "onResponse: "+matchDetail.toString())
@@ -44,7 +52,8 @@ class MatchScreenViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    TODO("Not yet implemented")
+
+                    Toast.makeText(mContext, "Something went wrong...", Toast.LENGTH_SHORT).show()
                 }
 
             })
@@ -84,6 +93,24 @@ class MatchScreenViewModel : ViewModel() {
             })
 
         }
+
+    }
+
+    fun loadDataFromAssets(mContext:Context){
+        lateinit var jsonString: String
+        try {
+            jsonString = mContext.assets.open("data/dummyData.json")
+                .bufferedReader()
+                .use { it.readText() }
+        } catch (ioException: IOException) {
+           ioException.printStackTrace()
+        }
+        val gson = Gson()
+        val matchDetail = gson.fromJson(jsonString, MatchDetail::class.java)
+        val currentMatchs=ArrayList<MatchDetail>()
+        currentMatchs.add(matchDetail)
+        listOfMatch.postValue(currentMatchs)
+
 
     }
 }
